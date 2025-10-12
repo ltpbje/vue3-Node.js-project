@@ -5,7 +5,7 @@
             <el-icon @click="handleCollapsed">
                 <Menu />
             </el-icon>
-            <span style="margin-left: 10px;">企业门户网站管理系统</span>
+            <span style="margin-left: 10px;">闪讯库数字化管理系统</span>
         </div>
         <div class="right">
             <span>欢迎 {{ store.state.userInfo.username }} 回来</span>
@@ -29,24 +29,24 @@
 
 <script setup>
 import router from '@/router';
-import { Menu, User } from '@element-plus/icons-vue'
+import { Menu, User } from '@element-plus/icons-vue';
 import { useStore } from 'vuex';
-const store = useStore()
+const store = useStore();
 
 const handleCollapsed = () => {
-    store.commit('changeCollapsed')
-}
+    store.commit('changeCollapsed');
+};
 // 跳转到个人中心
 const handleCenter = () => {
-    router.push('/center')
-}
+    router.push('/center');
+};
 
 // 退出登录
 const handleLogout = () => {
-    localStorage.removeItem('token')
-    store.commit('clearUserInfo')
-    router.push('/login')
-}
+    localStorage.removeItem('token');
+    store.commit('clearUserInfo');
+    router.push('/login');
+};
 </script>
 
 

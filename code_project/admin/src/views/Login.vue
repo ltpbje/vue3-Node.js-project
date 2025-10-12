@@ -5,7 +5,7 @@
         <vue-particles id="tsparticles" :particlesLoaded="particlesLoaded" :options="options" />
 
         <div class="formContainer">
-            <h3>企业门户网站管理系统</h3>
+            <h3>闪讯库数字化管理系统</h3>
             <el-form ref="loginFormRef" style="max-width: 600px" :model="loginForm" status-icon :rules="loginRules"
                 label-width="80px" class="loginForm">
                 <el-form-item label="用户名" prop="username">

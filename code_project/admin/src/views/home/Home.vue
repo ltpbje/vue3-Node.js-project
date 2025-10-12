@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-page-header icon="" title="企业门户网站管理系统">
+        <el-page-header icon="" title="闪讯库数字化管理系统">
             <template #content>
                 <span class="text-large font-600 mr-3"> 首页 </span>
             </template>
@@ -12,7 +12,7 @@
                     <el-avatar :size="100" :src="avatarUrl" />
                 </el-col>
                 <el-col :span="20" style="line-height: 100px;">欢迎 {{ store.state.userInfo.username
-                    }}回来, {{ welcomeText }}</el-col>
+                }}回来, {{ welcomeText }}</el-col>
             </el-row>
         </el-card>
 
@@ -49,22 +49,22 @@
 
 
 <script setup>
-import { useStore } from 'vuex'
-import { computed, onMounted, ref } from 'vue'
+import { useStore } from 'vuex';
+import { computed, onMounted, ref } from 'vue';
 import axios from 'axios';
-const store = useStore()
-const loopList = ref([])
-const avatarUrl = computed(() => store.state.userInfo.avatar ? 'http://localhost:3000' + store.state.userInfo.avatar : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png')
-const welcomeText = computed(() => new Date().getHours() < 12 ? '要开心每一天!' : '喝杯咖啡提提神吧!')
+const store = useStore();
+const loopList = ref([]);
+const avatarUrl = computed(() => store.state.userInfo.avatar ? 'http://localhost:3000' + store.state.userInfo.avatar : 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png');
+const welcomeText = computed(() => new Date().getHours() < 12 ? '要开心每一天!' : '喝杯咖啡提提神吧!');
 // console.log(store.state)
 onMounted(() => {
-    getData()
-})
+    getData();
+});
 // 获取表格数据
 const getData = async () => {
-    const res = await axios.get(`/adminapi/product/list/?username=${store.state.userInfo.username}`)
+    const res = await axios.get(`/adminapi/product/list/?username=${store.state.userInfo.username}`);
     // console.log(res.data)
-    loopList.value = res.data.data
+    loopList.value = res.data.data;
     console.log(loopList.value);
 
 }
