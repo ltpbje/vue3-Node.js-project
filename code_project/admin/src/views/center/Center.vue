@@ -1,6 +1,6 @@
 <template>
     <div>
-        <el-page-header icon="" title="闪讯库数字化管理系统">
+        <el-page-header icon="" title="品讯数字化管理系统">
             <template #content>
                 <span class="text-large font-600 mr-3"> 个人中心 </span>
             </template>

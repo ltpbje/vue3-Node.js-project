@@ -1,11 +1,11 @@
 <template>
-    <div>
+    <div class="login-container">
         <!-- <vue-particles id="tsparticles" :particlesLoaded="particlesLoaded" url="http://foo.bar/particles.json" /> -->
 
-        <vue-particles id="tsparticles" :particlesLoaded="particlesLoaded" :options="options" />
+        <!-- <vue-particles id="tsparticles" :particlesLoaded="particlesLoaded" :options="options" /> -->
 
         <div class="formContainer">
-            <h3>闪讯库数字化管理系统</h3>
+            <h3>品讯数字化管理系统</h3>
             <el-form ref="loginFormRef" style="max-width: 600px" :model="loginForm" status-icon :rules="loginRules"
                 label-width="80px" class="loginForm">
                 <el-form-item label="用户名" prop="username">
@@ -27,15 +27,15 @@
 <script setup>
 import store from '@/store';
 import axios from 'axios';
-import { ElMessage } from 'element-plus'
+import { ElMessage } from 'element-plus';
 import 'element-plus/theme-chalk/el-message.css';
-import { ref, reactive, onMounted, onUnmounted } from 'vue'
-import { useRouter } from 'vue-router'
+import { ref, reactive, onMounted, onUnmounted } from 'vue';
+import { useRouter } from 'vue-router';
 const loginForm = reactive({
     username: '',
     password: ''
-})//表单绑定的响应式对象
-const loginFormRef = ref() //表单的引用对象
+});//表单绑定的响应式对象
+const loginFormRef = ref(); //表单的引用对象
 const loginRules = reactive({
     username: [
         { required: true, message: '请输入用户名', trigger: 'blur' },
@@ -43,8 +43,8 @@ const loginRules = reactive({
     password: [
         { required: true, message: '请输入密码', trigger: 'blur' },
     ],
-})
-const router = useRouter()
+});
+const router = useRouter();
 // 提交表单函数
 const submitForm = () => {
     //1. 校验表单
@@ -56,45 +56,45 @@ const submitForm = () => {
                 // console.log(res.data)
                 if (res.data.ActionType === 'OK') {
                     // console.log(res.data.data)
-                    store.commit('changeUserInfo', res.data.data)
-                    router.push('/index')
+                    store.commit('changeUserInfo', res.data.data);
+                    router.push('/index');
 
                     // localStorage.setItem('token', 'kerwin')
                 } else {
                     // ElMessage.error('用户名和密码不匹配')
-                    console.log(res.data)
+                    console.log(res.data);
                     ElMessage({
                         message: '用户名和密码不匹配',
                         type: 'error',
                         plain: false,
-                    })
+                    });
                 }
-            })
+            });
             // router.push('/index')
         }
-    })
+    });
 
 
     // 2。拿到表单内容，提交后台
     // 3.设置token
     // localstorage.setItem("token", "kerwin")
-}
+};
 
 // const handleLogin = ()=>{
 //     localStorage.setItem('token','kerwin')
 // }
 onMounted(() => {
-    window.addEventListener('keydown', keyDown)
-})
+    window.addEventListener('keydown', keyDown);
+});
 const keyDown = (e) => {
     //如果是回车则执行登录方法
     if (e.keyCode == 13) {
-        submitForm()
+        submitForm();
     }
-}
+};
 onUnmounted(() => {
-    window.removeEventListener('keydown', keyDown, false)
-})
+    window.removeEventListener('keydown', keyDown, false);
+});
 const options = {
     background: {
         color: {
@@ -165,13 +165,37 @@ const options = {
         }
     },
     detectRetina: true
-}
+};
 const particlesLoaded = async container => {
     console.log("Particles container loaded", container);
 };
 </script>
 
 <style lang="scss" scoped>
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #4facfe 100%);
+    background-size: 400% 400%;
+    animation: gradientShift 8s ease infinite;
+    overflow: hidden;
+    position: relative;
+}
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 .formContainer {
     box-sizing: border-box;
     border-radius: 20px;
@@ -181,12 +205,20 @@ const particlesLoaded = async container => {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba($color: #fff, $alpha: 0.89);
+    background: rgba($color: #fff, $alpha: 0.92);
     text-align: center;
     padding: 35px 20px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.37);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
 
     h3 {
         font-size: 30px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        margin-bottom: 25px;
     }
 
     .loginForm {
@@ -195,6 +227,17 @@ const particlesLoaded = async container => {
 }
 
 ::v-deep .el-form-item__label {
-    color: black;
+    color: #333;
+}
+
+::v-deep .el-button--primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+::v-deep .el-button--primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
 }
 </style>

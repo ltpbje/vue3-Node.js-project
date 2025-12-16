@@ -5,7 +5,7 @@
             <el-icon @click="handleCollapsed">
                 <Menu />
             </el-icon>
-            <span style="margin-left: 10px;">闪讯库数字化管理系统</span>
+            <span style="margin-left: 10px;">品讯数字化管理系统</span>
         </div>
         <div class="right">
             <span>欢迎 {{ store.state.userInfo.username }} 回来</span>
