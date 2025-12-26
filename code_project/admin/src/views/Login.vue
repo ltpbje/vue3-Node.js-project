@@ -12,7 +12,7 @@
                     <el-input v-model="loginForm.username" autocomplete="off" />
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
-                    <el-input v-model="loginForm.password" type="password" autocomplete="off" />
+                    <el-input v-model="loginForm.password" show-password autocomplete="off" />
                 </el-form-item>
                 <el-form-item>
                     <el-button type="primary" @click="submitForm()">
