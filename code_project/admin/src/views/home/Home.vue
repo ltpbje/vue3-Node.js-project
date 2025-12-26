@@ -12,7 +12,7 @@
                     <el-avatar :size="100" :src="avatarUrl" />
                 </el-col>
                 <el-col :span="20" style="line-height: 100px;">欢迎 {{ store.state.userInfo.username
-                }}回来, {{ welcomeText }}</el-col>
+                    }}回来, {{ welcomeText }}</el-col>
             </el-row>
         </el-card>
 
@@ -91,5 +91,19 @@ const getData = async () => {
 
 .el-carousel__item:nth-child(2n + 1) {
     background-color: #d3dce6;
+}
+
+::v-deep .el-carousel__arrow {
+    background-color:#C1C1C1;
+    width: 40px;
+    height: 40px;
+}
+
+::v-deep .el-carousel__arrow--left {
+    left: 10px;
+}
+
+::v-deep .el-carousel__arrow--right {
+    right: 10px;
 }
 </style>
