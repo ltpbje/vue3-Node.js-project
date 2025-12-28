@@ -74,10 +74,87 @@ const vAdmin = {
 <style lang="scss" scoped>
 .el-aside {
      height: 100vh;
-     transition: all 700ms;
+     transition: width 700ms;
+     background: #fafafa;
+     border-right: 1px solid #ebeef5;
 
      .el-menu {
-          height: 100vh;
+          height: 100%;
+          border-right: none;
+          background: transparent;
      }
+}
+
+::v-deep .el-menu-item {
+     height: 44px;
+     line-height: 44px;
+     margin: 2px 12px;
+     border-radius: 6px;
+     color: #606266;
+
+     .el-icon {
+          margin-right: 8px;
+     }
+
+     &:hover {
+          background-color: #ecf5ff;
+          color: #409eff;
+     }
+
+     &.is-active {
+          background-color: #ecf5ff;
+          color: #409eff;
+          font-weight: 500;
+     }
+}
+
+::v-deep .el-sub-menu {
+     .el-sub-menu__title {
+          height: 44px;
+          line-height: 44px;
+          margin: 2px 12px;
+          border-radius: 6px;
+          color: #606266;
+
+          .el-icon {
+               margin-right: 8px;
+          }
+
+          &:hover {
+               background-color: #ecf5ff;
+               color: #409eff;
+          }
+     }
+
+     &.is-active>.el-sub-menu__title {
+          color: #409eff;
+          font-weight: 500;
+     }
+}
+
+::v-deep .el-sub-menu .el-menu-item {
+     height: 40px;
+     line-height: 40px;
+     margin-left: 24px;
+     margin-right: 12px;
+     margin-top: 2px;
+     margin-bottom: 2px;
+     border-radius: 6px;
+     font-size: 14px;
+
+     &:hover {
+          background-color: #ecf5ff;
+          color: #409eff;
+     }
+
+     &.is-active {
+          background-color: #ecf5ff;
+          color: #409eff;
+     }
+}
+
+::v-deep .el-sub-menu__icon-arrow {
+     font-size: 14px;
+     color: #909399;
 }
 </style>
