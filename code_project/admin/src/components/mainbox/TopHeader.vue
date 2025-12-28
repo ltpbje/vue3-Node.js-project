@@ -53,34 +53,69 @@ const handleLogout = () => {
 
 <style lang="scss" scoped>
 .el-header {
-    background-color: #409EFF;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     color: white;
     width: 100%;
     height: 60px;
     line-height: 60px;
     display: flex;
     justify-content: space-between;
+    padding: 0 20px;
+    box-shadow: 0 2px 12px rgba(102, 126, 234, 0.4);
 }
 
 .right,
 .left {
     display: flex;
+    align-items: center;
 }
 
 .left {
     i {
-        margin: auto;
         cursor: pointer;
+        padding: 8px;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.1);
+        }
+    }
+
+    span {
+        font-weight: 600;
+        font-size: 16px;
+        letter-spacing: 1px;
     }
 }
 
 .right {
-    .el-dropdown {
-        margin: auto;
+    span {
+        margin-right: 15px;
+        font-size: 14px;
+        opacity: 0.95;
+    }
 
+    .el-dropdown {
         .el-dropdown-link {
             outline: none;
+            cursor: pointer;
+            padding: 6px;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+
+            &:hover {
+                background: rgba(255, 255, 255, 0.2);
+            }
         }
+    }
+}
+
+.el-dropdown-menu__item {
+    &:hover {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
     }
 }
 </style>

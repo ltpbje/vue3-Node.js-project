@@ -56,20 +56,20 @@
 </template>
 
 <script setup>
-import { HomeFilled, Avatar, UserFilled, MessageBox, Reading, Pointer } from '@element-plus/icons-vue'
+import { HomeFilled, Avatar, UserFilled, MessageBox, Reading, Pointer } from '@element-plus/icons-vue';
 import { useStore } from 'vuex';
-import { useRoute } from 'vue-router'
+import { useRoute } from 'vue-router';
 // 当前路由信息
-const route = useRoute()
-const store = useStore()
+const route = useRoute();
+const store = useStore();
 const vAdmin = {
      mounted(el) {
           // console.log(el)
           if (store.state.userInfo.role !== 1) {
-               el.remove()
+               el.remove();
           }
      },
-}
+};
 </script>
 <style lang="scss" scoped>
 .el-aside {

@@ -12,7 +12,7 @@
                     <el-avatar :size="100" :src="avatarUrl" />
                 </el-col>
                 <el-col :span="20" style="line-height: 100px;">欢迎 {{ store.state.userInfo.username
-                    }}回来, {{ welcomeText }}</el-col>
+                }}回来, {{ welcomeText }}</el-col>
             </el-row>
         </el-card>
 
@@ -94,7 +94,7 @@ const getData = async () => {
 }
 
 ::v-deep .el-carousel__arrow {
-    background-color:#C1C1C1;
+    background-color: rgba(64, 158, 255, 0.8);
     width: 40px;
     height: 40px;
 }
@@ -105,5 +105,27 @@ const getData = async () => {
 
 ::v-deep .el-carousel__arrow--right {
     right: 10px;
+}
+
+::v-deep .el-carousel__item {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+::v-deep .el-carousel__item:hover {
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    transform: translateY(-5px);
+}
+
+::v-deep .el-carousel__item--active {
+    box-shadow: 0 8px 32px rgba(64, 158, 255, 0.3);
+}
+
+.card-header {
+    font-weight: 600;
+    font-size: 16px;
+    color: #333;
 }
 </style>
