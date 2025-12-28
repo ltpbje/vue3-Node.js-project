@@ -86,8 +86,8 @@ const vAdmin = {
 }
 
 ::v-deep .el-menu-item {
-     height: 44px;
-     line-height: 44px;
+     height: 64px;
+     line-height: 64px;
      margin: 2px 12px;
      border-radius: 6px;
      color: #606266;
@@ -113,8 +113,8 @@ const vAdmin = {
 
 ::v-deep .el-sub-menu {
      .el-sub-menu__title {
-          height: 44px;
-          line-height: 44px;
+          height: 64px;
+          line-height: 64px;
           margin: 2px 12px;
           border-radius: 6px;
           color: #606266;
@@ -144,8 +144,8 @@ const vAdmin = {
 }
 
 ::v-deep .el-sub-menu .el-menu-item {
-     height: 40px;
-     line-height: 40px;
+     height: 58px;
+     line-height: 58px;
      margin-left: 24px;
      margin-right: 12px;
      margin-top: 2px;
