@@ -91,9 +91,12 @@ const vAdmin = {
      margin: 2px 12px;
      border-radius: 6px;
      color: #606266;
+     display: flex;
+     align-items: center;
 
      .el-icon {
           margin-right: 8px;
+          font-size: 20px;
      }
 
      &:hover {
@@ -115,9 +118,17 @@ const vAdmin = {
           margin: 2px 12px;
           border-radius: 6px;
           color: #606266;
+          display: flex;
+          align-items: center;
 
           .el-icon {
                margin-right: 8px;
+               font-size: 20px;
+          }
+
+          .el-sub-menu__icon-arrow {
+               font-size: 14px;
+               color: #909399;
           }
 
           &:hover {
@@ -153,8 +164,37 @@ const vAdmin = {
      }
 }
 
-::v-deep .el-sub-menu__icon-arrow {
-     font-size: 14px;
-     color: #909399;
+::v-deep .el-menu--collapse {
+     .el-menu-item {
+          margin: 2px 0;
+          padding: 0 !important;
+          justify-content: center;
+
+          .el-icon {
+               margin-right: 0;
+          }
+
+          span {
+               display: none;
+          }
+     }
+
+     .el-sub-menu__title {
+          margin: 2px 0;
+          padding: 0 !important;
+          justify-content: center;
+
+          .el-icon {
+               margin-right: 0;
+          }
+
+          .el-sub-menu__icon-arrow {
+               display: none;
+          }
+
+          span {
+               display: none;
+          }
+     }
 }
 </style>
