@@ -46,10 +46,20 @@ const ProductController = {
     },
     getList: async (req, res) => {
         const result = await ProductService.getList({_id:req.params.id,query:req.query})
-        res.send({
-            ActionType: 'OK',
-            data:result
-        })
+        // 如果返回的是分页数据对象（包含data和total）
+        if (result && result.data !== undefined) {
+            res.send({
+                ActionType: 'OK',
+                data: result.data,
+                total: result.total
+            })
+        } else {
+            // 返回完整数组（单个产品或未分页的情况）
+            res.send({
+                ActionType: 'OK',
+                data: result
+            })
+        }
     },
     // publish:async (req,res) => {
     //     await NewsService.publish({

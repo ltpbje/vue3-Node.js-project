@@ -36,6 +36,19 @@ const ProductService = {
         if (_id) {
             return   ProductModel.find({_id})
         } else {
+            // 分页查询
+            const { currentPage, pageSize } = query
+            if (currentPage && pageSize) {
+                const skip = (currentPage - 1) * pageSize
+                const [data, total] = await Promise.all([
+                    ProductModel.find({username: query.username})
+                        .skip(skip)
+                        .limit(pageSize)
+                        .sort({ _id: -1 }),
+                    ProductModel.countDocuments({username: query.username})
+                ])
+                return { data, total }
+            }
             return ProductModel.find({username: query.username})
         }
     },

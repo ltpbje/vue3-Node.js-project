@@ -30,6 +30,21 @@
             </el-table-column>
         </el-table>
 
+        <!-- 分页 -->
+        <el-config-provider :locale="zhCn">
+            <el-pagination
+                v-model:current-page="currentPage"
+                v-model:page-size="pageSize"
+                :page-sizes="[5, 10, 20, 50]"
+                :background="true"
+                layout="total, sizes, prev, pager, next, jumper"
+                :total="total"
+                @size-change="handleSizeChange"
+                @current-change="handleCurrentChange"
+                style="margin-top: 20px; justify-content: center"
+            />
+        </el-config-provider>
+
 
     </div>
 </template>
@@ -42,9 +57,16 @@ import formatTime from '@/util/formatTime'
 import { View, Edit, Delete, StarFilled } from '@element-plus/icons-vue'
 import router from '@/router';
 import store from '@/store';
+import { ElConfigProvider } from 'element-plus';
+import zhCn from 'element-plus/es/locale/lang/zh-cn';
 
 // 格式化时间方法
 const tableData = ref([])
+
+// 分页相关
+const currentPage = ref(1)
+const pageSize = ref(10)
+const total = ref(0)
 
 // 预览数据
 const previewData = ref({})
@@ -55,9 +77,15 @@ onMounted(() => {
 })
 // 获取表格数据
 const getTableData = async () => {
-    const res = await axios.get(`/adminapi/product/list/?username=${store.state.userInfo.username}`)
+    const res = await axios.get(`/adminapi/product/list/?username=${store.state.userInfo.username}`, {
+        params: {
+            currentPage: currentPage.value,
+            pageSize: pageSize.value
+        }
+    })
     // console.log(res.data)
     tableData.value = res.data.data
+    total.value = res.data.total || res.data.data.length
 }
 
 
@@ -65,6 +93,10 @@ const getTableData = async () => {
 const handleDelete = async (item) => {
     // console.log(item)
     await axios.delete(`/adminapi/product/list/${item._id}`)
+    // 删除后如果当前页没有数据且不是第一页，则返回上一页
+    if (tableData.value.length === 1 && currentPage.value > 1) {
+        currentPage.value--
+    }
     await getTableData()
 }
 
@@ -73,6 +105,19 @@ const handleDelete = async (item) => {
 
 const handleEdit = async (item) => {
     router.push(`/product-manage/editproduct/${item._id}`)
+}
+
+// 每页显示数量变化
+const handleSizeChange = (val) => {
+    pageSize.value = val
+    currentPage.value = 1
+    getTableData()
+}
+
+// 当前页码变化
+const handleCurrentChange = (val) => {
+    currentPage.value = val
+    getTableData()
 }
 
 </script>
