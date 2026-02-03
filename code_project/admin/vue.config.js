@@ -5,12 +5,14 @@ const {defineConfig} = require('@vue/cli-service')
 const {ElementPlusResolver} = require('unplugin-vue-components/resolvers')
 
 module.exports = defineConfig({
-    transpileDependencies: true,
+    // 开发服务器配置
+    transpileDependencies: true, // 启用对依赖的转译，确保兼容性
     devServer: {
+        // 代理配置，用于解决跨域问题
         proxy: {
-            '/adminapi':{
-                target: 'http://localhost:3000',
-                changeOrigin:true
+            '/adminapi':{ // 匹配以 /adminapi 开头的请求
+                target: 'http://localhost:3000', // 将请求代理到目标服务器
+                changeOrigin:true // 启用跨域，修改请求头的 origin
          }
      }  
     },

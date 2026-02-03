@@ -53,8 +53,8 @@
                 <el-form-item label="用户名" prop="username">
                     <el-input v-model="userForm.username" />
                 </el-form-item>
-                <el-form-item label="密码" prop="password">
-                    <el-input v-model="userForm.password" type="password" />
+                <el-form-item label="密码（不修改请留空）" prop="password">
+                    <el-input v-model="userForm.password" type="password" placeholder="不修改密码请留空" />
                 </el-form-item>
                 <el-form-item label="角色" prop="role">
                     <el-select v-model="userForm.role" placeholder="Select" style="width: 100%">
@@ -81,22 +81,28 @@
 <script setup>
 import axios from 'axios';
 import { ref, onMounted, reactive } from 'vue'
+import CryptoJS from 'crypto-js';
+
+// MD5 加密函数
+const md5Encrypt = (password) => {
+    return CryptoJS.MD5(password).toString();
+};
+
 const tableData = ref([])
 const dialogVisible = ref(false)
 const userFormRef = ref()
 const userForm = reactive({
+    _id: '',
     username: '',
     password: '',
     role: 2,//1.管理员 2.编辑
     introduction: '',
 })
 
+// 编辑时的验证规则（密码不是必填）
 const userFormRules = reactive({
     username: [
         { required: true, message: '请输入用户名', trigger: 'blur' },
-    ],
-    password: [
-        { required: true, message: '请输入密码', trigger: 'blur' },
     ],
     role: [
         { required: true, message: '请选择权限', trigger: 'blur' },
@@ -135,6 +141,8 @@ const handleEdit = async (data) => {
     const res = await axios.get(`/adminapi/user/list/${data._id}`)
     // console.log(res.data.data)
     Object.assign(userForm, res.data.data[0])
+    // 清空密码字段，避免显示哈希值
+    userForm.password = ''
     // console.log(userForm)
     dialogVisible.value = true
 }
@@ -143,8 +151,21 @@ const handleEdit = async (data) => {
 const handleEditConfirm = () => {
     userFormRef.value.validate(async (vaild) => {
         if (vaild) {
+            // 准备提交的数据
+            const submitData = {
+                _id: userForm._id,
+                username: userForm.username,
+                role: userForm.role,
+                introduction: userForm.introduction
+            }
+
+            // 如果填写了新密码，则进行 MD5 加密并更新
+            if (userForm.password) {
+                submitData.password = md5Encrypt(userForm.password)
+            }
+
             //1-更新后端
-            await axios.put(`/adminapi/user/list/${userForm._id}`, userForm)
+            await axios.put(`/adminapi/user/list/${userForm._id}`, submitData)
             //2-dialog隐藏
             dialogVisible.value = false
             //3-获取table数据

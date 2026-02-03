@@ -18,6 +18,8 @@ var upload = multer({ storage: storage });
 
 // 用户登录路由 
 UserRouter.post('/adminapi/user/login', UserController.login);
+// 用户注册路由
+UserRouter.post('/adminapi/user/register', UserController.register);
 // 更新用户信息路由
 UserRouter.post('/adminapi/user/upload',upload.single('file') ,UserController.upload);
 // 添加用户路由

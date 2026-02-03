@@ -1,6 +1,36 @@
 const UserService = require("../../services/admin/UserService")
 const JWT = require("../../util/JWT")
 const UserController = {
+    register: async (req, res) => {
+        const { username, password, role } = req.body
+
+        // 检查用户名是否已存在
+        const existingUser = await UserService.login({ username })
+        if (existingUser && existingUser.length > 0) {
+            res.send({
+                code: '-1',
+                error: '用户名已存在'
+            })
+            return
+        }
+
+        // 创建用户，设置默认角色为编辑(2)，如果未指定则使用默认值
+        const userRole = role ? Number(role) : 2
+
+        await UserService.add({
+            username,
+            password,
+            role: userRole,
+            gender: 0,
+            introduction: '',
+            avatar: ''
+        })
+
+        res.send({
+            ActionType: 'OK',
+            message: '注册成功'
+        })
+    },
     login: async (req, res) => {
         // console.log(req.body)
         const result = await UserService.login(req.body)

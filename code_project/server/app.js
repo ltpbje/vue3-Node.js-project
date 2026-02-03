@@ -42,7 +42,7 @@ app.use(webProductRouter)
 app.use((req, res, next) => {
   //如果token有效，next（）
   //如果token过期了，返回401错误
-  if (req.url === '/adminapi/user/login') {
+  if (req.url === '/adminapi/user/login' || req.url === '/adminapi/user/register') {
     next()
     return;
   }
