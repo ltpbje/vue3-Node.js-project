@@ -21,5 +21,14 @@ onMounted(() => {
         // 子传父
         emit('event', newHtml)
     };
+    // 配置 z-index，确保工具栏不被遮挡
+    editor.config.zIndex = 100
 })
 </script>
+
+<style scoped>
+#myeditor {
+    position: relative;
+    z-index: 100;
+}
+</style>

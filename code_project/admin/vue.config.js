@@ -18,8 +18,12 @@ module.exports = defineConfig({
     },
     configureWebpack: {
       plugins: [
-        require('unplugin-auto-import/webpack').default({ resolvers: [ElementPlusResolver()], }),
-        require('unplugin-vue-components/webpack').default({ resolvers: [ElementPlusResolver()]}),
+        require('unplugin-auto-import/webpack').default({
+          resolvers: [ElementPlusResolver({ locale: 'zh-cn' })]
+        }),
+        require('unplugin-vue-components/webpack').default({
+          resolvers: [ElementPlusResolver({ locale: 'zh-cn' })]
+        }),
             // AutoImport({
             //     resolvers: [ElementPlusResolver()],
             // }),

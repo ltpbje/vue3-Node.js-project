@@ -44,6 +44,21 @@
                     </template>
                 </el-table-column>
             </el-table>
+
+            <!-- 分页 -->
+            <el-config-provider :locale="zhCn">
+                <el-pagination
+                    v-model:current-page="currentPage"
+                    v-model:page-size="pageSize"
+                    :page-sizes="[5, 10, 20, 50]"
+                    :background="true"
+                    layout="total, sizes, prev, pager, next, jumper"
+                    :total="total"
+                    @size-change="handleSizeChange"
+                    @current-change="handleCurrentChange"
+                    style="margin-top: 20px; justify-content: center"
+                />
+            </el-config-provider>
         </el-card>
 
         <!-- 编辑对话框 -->
@@ -82,6 +97,8 @@
 import axios from 'axios';
 import { ref, onMounted, reactive } from 'vue'
 import CryptoJS from 'crypto-js';
+import { ElConfigProvider } from 'element-plus';
+import zhCn from 'element-plus/es/locale/lang/zh-cn';
 
 // MD5 加密函数
 const md5Encrypt = (password) => {
@@ -91,6 +108,12 @@ const md5Encrypt = (password) => {
 const tableData = ref([])
 const dialogVisible = ref(false)
 const userFormRef = ref()
+
+// 分页相关
+const currentPage = ref(1)
+const pageSize = ref(10)
+const total = ref(0)
+
 const userForm = reactive({
     _id: '',
     username: '',
@@ -129,9 +152,15 @@ onMounted(() => {
 })
 
 const getTableData = async () => {
-    const res = await axios.get('/adminapi/user/list')
+    const res = await axios.get('/adminapi/user/list', {
+        params: {
+            currentPage: currentPage.value,
+            pageSize: pageSize.value
+        }
+    })
     // console.log(res.data)
     tableData.value = res.data.data
+    total.value = res.data.total || res.data.data.length
 }
 
 // 编辑回调
@@ -177,6 +206,23 @@ const handleEditConfirm = () => {
 const handleDelete = async (data) => {
     // console.log(data)
     await axios.delete(`/adminapi/user/list/${data._id}`)
+    // 删除后如果当前页没有数据且不是第一页，则返回上一页
+    if (tableData.value.length === 1 && currentPage.value > 1) {
+        currentPage.value--
+    }
+    getTableData()
+}
+
+// 每页显示数量变化
+const handleSizeChange = (val) => {
+    pageSize.value = val
+    currentPage.value = 1
+    getTableData()
+}
+
+// 当前页码变化
+const handleCurrentChange = (val) => {
+    currentPage.value = val
     getTableData()
 }
 </script>

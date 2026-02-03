@@ -107,10 +107,15 @@ const UserController = {
         })
     },
     getList:async (req, res) => {
-        const result= await UserService.getList(req.params)
-        res.send({   
+        const { currentPage, pageSize } = req.query
+        const result = await UserService.getList({
+            currentPage: Number(currentPage) || 1,
+            pageSize: Number(pageSize) || 10
+        })
+        res.send({
             ActionType: 'OK',
-            data:result
+            data:result.data,
+            total: result.total
         })
     },
     // 删除用户信息

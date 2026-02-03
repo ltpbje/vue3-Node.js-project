@@ -33,8 +33,23 @@ const UserService =  {
             username, introduction, gender, avatar, password: hashedPassword, role
         })
     },
-    getList:async ({id}) => {
-        return id ?  UserModel.find({_id:id},['username','role','introduction']):UserModel.find({},['username','role','avatar','introduction','gender'])
+    getList:async ({ id, currentPage, pageSize }) => {
+        // 如果有 id 参数，返回单个用户
+        if (id) {
+            return UserModel.find({_id:id},['username','role','introduction'])
+        }
+
+        // 分页查询
+        const skip = (currentPage - 1) * pageSize
+        const [data, total] = await Promise.all([
+            UserModel.find({}, ['username','role','avatar','introduction','gender'])
+                .skip(skip)
+                .limit(pageSize)
+                .sort({ _id: -1 }),
+            UserModel.countDocuments({})
+        ])
+
+        return { data, total }
     },
     delList: async ({_id}) => {
         return UserModel.deleteOne({_id})
