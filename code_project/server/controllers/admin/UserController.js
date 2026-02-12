@@ -108,15 +108,27 @@ const UserController = {
     },
     getList:async (req, res) => {
         const { currentPage, pageSize } = req.query
-        const result = await UserService.getList({
-            currentPage: Number(currentPage) || 1,
-            pageSize: Number(pageSize) || 10
-        })
-        res.send({
-            ActionType: 'OK',
-            data:result.data,
-            total: result.total
-        })
+        const id = req.params.id
+
+        // 如果有 id 参数，返回单个用户
+        if (id) {
+            const result = await UserService.getList({ id })
+            res.send({
+                ActionType: 'OK',
+                data: result
+            })
+        } else {
+            // 分页查询
+            const result = await UserService.getList({
+                currentPage: Number(currentPage) || 1,
+                pageSize: Number(pageSize) || 10
+            })
+            res.send({
+                ActionType: 'OK',
+                data:result.data,
+                total: result.total
+            })
+        }
     },
     // 删除用户信息
     delList:async (req, res) => {

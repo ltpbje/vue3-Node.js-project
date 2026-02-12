@@ -169,9 +169,15 @@ const handleEdit = async (data) => {
     // 获取包含密码的用户信息
     const res = await axios.get(`/adminapi/user/list/${data._id}`)
     // console.log(res.data.data)
-    Object.assign(userForm, res.data.data[0])
-    // 清空密码字段，避免显示哈希值
+    const userData = res.data.data[0]
+
+    // 重置表单数据
+    userForm._id = userData._id
+    userForm.username = userData.username
     userForm.password = ''
+    userForm.role = Number(userData.role)
+    userForm.introduction = userData.introduction || ''
+
     // console.log(userForm)
     dialogVisible.value = true
 }

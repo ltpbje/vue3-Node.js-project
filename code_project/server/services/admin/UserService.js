@@ -36,7 +36,8 @@ const UserService =  {
     getList:async ({ id, currentPage, pageSize }) => {
         // 如果有 id 参数，返回单个用户
         if (id) {
-            return UserModel.find({_id:id},['username','role','introduction'])
+            const user = await UserModel.findOne({_id:id},['username','role','introduction'])
+            return user ? [user] : []
         }
 
         // 分页查询
