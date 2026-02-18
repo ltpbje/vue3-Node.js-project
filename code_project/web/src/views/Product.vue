@@ -86,7 +86,6 @@ onMounted(async () => {
     z-index: 2;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
     transition: all 0.3s ease;
 
     &:hover {
@@ -94,16 +93,30 @@ onMounted(async () => {
         box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
     }
 
-    .card-header {
-        margin-bottom: 10px;
+    :deep(.el-card__header) {
+        padding: 18px 20px;
+        border-bottom: 1px solid #ebeef5;
+        box-sizing: border-box;
+        flex-shrink: 0;
+    }
 
+    :deep(.el-card__body) {
+        padding: 20px;
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        min-height: 0;
+    }
+
+    .card-header {
         h2 {
             font-size: 1.8rem;
             font-weight: 600;
             color: #333;
             margin: 0;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #f0f0f0;
+            padding-bottom: 0;
+            border-bottom: none;
         }
     }
 
@@ -119,9 +132,11 @@ onMounted(async () => {
         font-size: 0.95rem;
         line-height: 1.5;
         color: #666;
-        flex-grow: 1;
+        flex: 1;
         overflow-y: auto;
+        overflow-x: hidden;
         padding-right: 10px;
+        min-height: 0;
 
         &::-webkit-scrollbar {
             width: 6px;
@@ -135,6 +150,7 @@ onMounted(async () => {
         &::-webkit-scrollbar-thumb {
             background: rgba(0, 0, 0, 0.2);
             border-radius: 3px;
+            transition: background 0.3s ease;
         }
 
         &::-webkit-scrollbar-thumb:hover {
