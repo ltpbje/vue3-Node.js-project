@@ -1,5 +1,5 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 const NewsType = {
     title: String,
     content: String,
@@ -7,9 +7,9 @@ const NewsType = {
     cover: String,//封面
     isPublish: Number,//未发布，已发布
     editTime: Date,
-    username:String
-}
+    username: String
+};
 
-const NewsModel = mongoose.model('news', new Schema(NewsType))
+const NewsModel = mongoose.model('news', new Schema(NewsType));
 
-module.exports = NewsModel
+module.exports = NewsModel;
