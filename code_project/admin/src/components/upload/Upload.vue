@@ -11,21 +11,21 @@
 
 
 <script setup>
-import { defineEmits, defineProps, computed } from 'vue'
+import { defineEmits, defineProps, computed } from 'vue';
 import { Plus } from '@element-plus/icons-vue';
 const props = defineProps({
     avatar: String
-})
+});
 
-const emit = defineEmits(['kerwinchange'])
+const emit = defineEmits(['kerwinchange']);
 // 每次选择完图片后的回调
 const handleChange = (file) => {
     // console.log(file)
-    emit('kerwinchange', file.raw)
-}
+    emit('kerwinchange', file.raw);
+};
 
 
-const uploadAvatar = computed(() => props.avatar.includes('blob') ? props.avatar : 'http://localhost:3000' + props.avatar)
+const uploadAvatar = computed(() => props.avatar.includes('blob') ? props.avatar : 'http://localhost:3000' + props.avatar);
 </script>
 
 
@@ -36,6 +36,8 @@ const uploadAvatar = computed(() => props.avatar.includes('blob') ? props.avatar
     cursor: pointer;
     position: relative;
     overflow: hidden;
+    width: 200px;
+    height: 200px;
     transition: var(--el-transition-duration-fast);
 }
 
